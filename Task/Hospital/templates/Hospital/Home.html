@@ -1,0 +1,73 @@
+{% extends "layout/layout1.html" %}
+{% load static %}
+{% block content %}
+<!--include nav bar-->
+{% include "layout/Navbar.html" %}
+<!--end -->
+<div class="p-5"></div>
+<div class="container">
+    <!--for message -->
+
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="container">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error !</strong> {{message}}.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    {% endif %}
+    {% if message.tags == 'success' %}
+
+    <div class="container">
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>Sucess !</strong> {{message}}.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <form class="mb-4" action="{% url 'Hospital:searching' %}">
+        <div class="form-row  no-gutters">
+            <div class="col-7">
+                <select class="form-control form-control-lg" name="city">
+                    {%for city in cities %}
+                    <option value="{{city.0}}" {% if citySelect== city.0 %} selected {% endif %}>{{city.1}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Find Blood Bank Near">
+            </div>
+        </div>
+    </form>
+    <div class="bank-result" style="min-height: 348px;">
+        {% if flag %}
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">City</th>
+                <th scope="col">Distance</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for bank in near_bank %}
+            <tr>
+                <td>{{bank.name}}</td>
+                <td>{{bank.city}}</td>
+                <td>{{bank.distance}} KM</td>
+                <td><a href="{% url 'Hospital:makeOrder' bank.id %}" class="btn btn-danger">Make Order</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
