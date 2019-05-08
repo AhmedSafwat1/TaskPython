@@ -44,11 +44,17 @@ def order(request, bid):
     hospitals = Hospital.objects.all()
     # print(bank.BloodDonation_set.all())
     req = RequestBlood()
+    r = dict()
+    r["blood_type"] = "o+"
+    r["patients_status"] = "1"
+    r["hospital"] = ""
+    r["quantity"] = ""
     context = {
         "bank": bank,
         "bloods": req.BLOOD_TYPE,
         "stauts": req.PATION_STATUS,
-        "hosptals": hospitals
+        "hosptals": hospitals,
+        "old":r
 
     }
     if request.method == "POST":

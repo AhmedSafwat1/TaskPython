@@ -9,78 +9,71 @@
     <!--for message -->
 
     {% for message in messages %}
-    {% if message.tags == 'error' %}
-    <div class="container">
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Error !</strong> {{message}}.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        {% if message.tags == 'error' %}
+        <div class="container">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Error !</strong> {{message}}.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </div>
-    {% endif %}
-    {% if message.tags == 'success' %}
-
-    <div class="container">
-        <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            <strong>Sucess !</strong> {{message}}.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </div>
-    {% endif %}
-    {% endfor %}
-    <div class="form" style="min-height: 400px;">
-        <form method="post" action="{% url 'Hospital:makeOrder' bank.id %} ">
-            {% csrf_token %}
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label>Blood Type</label>
-                    <select class="form-control form-control-lg" name="blood_type">
-                        {%for blood in bloods %}
-                        <option value="{{blood.0}}" {% if old.blood_type== blood.0 %} selected {% endif %}>{{blood.1}}
-                        </option>
-                        {%endfor%}
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Patient Status</label>
-                    <select class="form-control form-control-lg" name="patients_status">
-                        {%for pationStautus in stauts %}
-                        <option value="{{pationStautus.0}}" {% if old.patients_status== pationStautus.0 %} selected {%
-                                endif %}>{{pationStautus.1}}
-                        </option>
-                        {%endfor%}
-                    </select>
-                </div>
+              </button>
             </div>
-            <div class="form-row mt-4">
+        </div>
+        {% endif %}
+        {% if message.tags == 'success' %}
+
+         <div class="container">
+             <div class="alert alert-primary alert-dismissible fade show" role="alert">
+              <strong>Sucess !</strong> {{message}}.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+         </div>
+        {% endif %}
+    {% endfor %}
+     <div class="form" style="min-height: 400px;">
+         <form method="post" action="{% url 'Hospital:makeOrder' bank.id %} ">
+             {% csrf_token %}
+             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label>Hospital</label>
-                    <select class="form-control form-control-lg" name="hospital">
-                        {%for hospital in hosptals %}
-                        <option value="{{hospital.id}}" {% if old.hospital.id== hospital.id %} selected {% endif %}>
-                            {{hospital.name}}
-                        </option>
-                        {%endfor%}
-                    </select>
+                  <label >Blood Type</label>
+                  <select class="form-control form-control-lg" name="blood_type">
+                      {%for blood in bloods %}
+                      <option value="{{blood.0}}"  {% if old.blood_type == blood.0  %} selected {% endif %} >{{blood.1}}</option>
+                      {%endfor%}
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label >Patient Status</label>
+                 <select class="form-control form-control-lg" name="patients_status">
+                      {%for pationStautus in stauts %}
+                      <option value="{{pationStautus.0}}"  {% if old.patients_status == pationStautus.0  %} selected {% endif %} >{{pationStautus.1}}</option>
+                      {%endfor%}
+                  </select>
+                </div>
+              </div>
+             <div class="form-row mt-4">
+                <div class="form-group col-md-6">
+                  <label >Hospital</label>
+                  <select class="form-control form-control-lg" name="hospital">
+                      {%for hospital in hosptals %}
+                      <option value="{{hospital.id}}" {% if old.hospital.id == hospital.id  %} selected {% endif %} >{{hospital.name}}</option>
+                      {%endfor%}
+                  </select>
                 </div>
                 <div class="form-group col-md-6  ">
-                    <label>Quanty </label>
-                    <input type="text" class="form-control form-control-lg" value="{{old.quantity}}" name="quantity"
-                           placeholder="Enter Quanty  minim (10)">
+                  <label >Quanty </label>
+                    <input type="text" class="form-control form-control-lg" value="{{old.quantity}}" name="quantity" placeholder="Enter Quanty  minim (10)">
                 </div>
-            </div>
-            <div class="form-group  mt-4">
+              </div>
+             <div class="form-group  mt-4">
                 <label for="inputAddress2">Bank</label>
-                <input type="text" class="form-control form-control-lg" disabled id="inputAddress2"
-                       value="{{bank.name}}">
-            </div>
-            <div class="form-group  mt-4">
-                <button type="submit" class="btn btn-block btn-lg btn-primary">Make</button>
-            </div>
-        </form>
-    </div>
+                <input type="text" class="form-control form-control-lg"  disabled id="inputAddress2" value="{{bank.name}}">
+             </div>
+             <div class="form-group  mt-4">
+                 <button type="submit" class="btn btn-block btn-lg btn-primary">Make</button>
+             </div>
+         </form>
+     </div>
 </div>
 {% endblock %}

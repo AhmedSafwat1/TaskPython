@@ -36,7 +36,7 @@
             <div class="col-7">
                 <select class="form-control form-control-lg" name="city">
                     {%for city in cities %}
-                    <option value="{{city.0}}" {% if citySelect== city.0 %} selected {% endif %}>{{city.1}}</option>
+                    <option value="{{city.0}}" {% if citySelect == city.0 %} selected {% endif %}>{{city.1}}</option>
                     {%endfor%}
                 </select>
             </div>
