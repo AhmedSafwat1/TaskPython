@@ -44,6 +44,7 @@ class RequestBlood(models.Model):
     REQUEST_STATUS = (
         ("0", "REJECT"),
         ("1", "ACCEPT"),
+        ("2", "Append"),
     )
     PATION_STATUS = (
         ("1", "Normal"),
@@ -51,11 +52,19 @@ class RequestBlood(models.Model):
         ("3", "Immediate"),
     )
     blood_type = models.CharField(max_length=4, choices=BLOOD_TYPE)
-    request_status = models.CharField(max_length=1, choices=REQUEST_STATUS, editable=False, default="0")
+    request_status = models.CharField(max_length=1, choices=REQUEST_STATUS, default="2")
     patients_status = models.CharField(max_length=1, choices=PATION_STATUS)
-    quantity = models.PositiveIntegerField(validators=[MinValueValidator(10)])
-    bank = models.ForeignKey(Bank, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+    bank = models.ForeignKey(Bank,  blank=True, null=True, on_delete=models.CASCADE)
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.blood_type
+        state = ""
+        if self.request_status == "0":
+            state = "Refues"
+        elif self.request_status == "1":
+            state = "Accept"
+        else:
+            state = "Append"
+
+        return self.blood_type+" , "+state

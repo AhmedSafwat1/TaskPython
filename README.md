@@ -13,7 +13,8 @@ and follow this
     may be need to create env 
      cd your_project , pip install virtualenv
     virtualenv env
-    3-\env\Scripts\activate.bat
+    \env\Scripts\activate.bat
+    pip install -r requirements.txt 
 
 #second run server
     cd Task/
